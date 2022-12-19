@@ -38,7 +38,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h1`
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
 `
 
