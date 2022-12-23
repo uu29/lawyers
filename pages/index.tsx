@@ -1,8 +1,22 @@
 import Head from 'next/head'
 import styled from '@emotion/styled';
 import TopControl from "./components/TopControl";
+import { Document, Page, Text, View, Font, StyleSheet, pdf } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver';
+import {useState} from "react";
 
 export default function Home() {
+  const [text, setText] = useState('');
+  const handleChange = (value: string) => setText(value);
+  const saveAsPDF = async () => {
+    const blob = await pdf((
+      <PDFDocument
+        content={text}
+      />
+    )).toBlob();
+    saveAs(blob, '제_13회_변호사_시험_답안지');
+  }
+
   return (
     <>
       <Head>
@@ -14,15 +28,64 @@ export default function Home() {
       <Background>
         <Main>
           <Title>제 13회 변호사 시험 답안지</Title>
-          <TopControl />
+          <TopControl onClickSave={saveAsPDF} />
           <Content>
-            <Textarea />
+            <Textarea onChange={(e)=> handleChange(e.target.value)} />
           </Content>
         </Main>
       </Background>
     </>
   )
 }
+
+interface PDFDocumentProps {
+  content: string;
+}
+
+const PDFDocument = ({content}: PDFDocumentProps) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.main}>
+        <View style={styles.title}>
+          <Text>제 13회 변호사 시험 답안지</Text>
+        </View>
+        <View style={styles.content}>
+          <Text>{content}</Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+);
+
+Font.register({
+  family: 'SpoqaHanSans',
+  src: 'https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@01ff0283e4f36e159ffbf744b36e16ef742da6d8/Subset/SpoqaHanSans/SpoqaHanSansLight.ttf',
+});
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    backgroundColor: '#2E6DA2',
+    minHeight: '100vh',
+  },
+  main: {
+    margin: 'auto',
+    maxWidth: '600px',
+  },
+  title: {
+    padding: '2.5rem 0 1rem',
+    textAlign: 'center',
+    fontSize: '24px',
+    color: '#f3f3f3',
+    fontWeight: 'semibold',
+    fontFamily: 'SpoqaHanSans',
+  },
+  content: {
+    padding: 16,
+    backgroundColor: '#fff',
+    fontFamily: 'SpoqaHanSans',
+  }
+});
 
 const Background = styled.div`
   min-height: 100vh;

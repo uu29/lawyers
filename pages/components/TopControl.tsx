@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 
-function TopControl(){
+interface TopControlProps {
+  onClickSave: () => void;
+}
+
+function TopControl({onClickSave}: TopControlProps){
   return (
     <TopControlBlock>
-      <Button>저장</Button>
+      <Button onClick={onClickSave}>저장</Button>
       <Button>인쇄</Button>
     </TopControlBlock>
   )
