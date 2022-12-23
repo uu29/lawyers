@@ -59,31 +59,36 @@ const PDFDocument = ({content}: PDFDocumentProps) => (
 
 Font.register({
   family: 'SpoqaHanSans',
-  src: 'https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@01ff0283e4f36e159ffbf744b36e16ef742da6d8/Subset/SpoqaHanSans/SpoqaHanSansLight.ttf',
-});
+  fonts: [
+    { src: 'https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@01ff0283e4f36e159ffbf744b36e16ef742da6d8/Subset/SpoqaHanSans/SpoqaHanSansRegular.ttf' },
+    { src: 'https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@01ff0283e4f36e159ffbf744b36e16ef742da6d8/Subset/SpoqaHanSans/SpoqaHanSansBold.ttf', fontStyle: 'bold' },
+    { src: 'https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@01ff0283e4f36e159ffbf744b36e16ef742da6d8/Subset/SpoqaHanSans/SpoqaHanSansLight.ttf', fontStyle: 'light' },
+  ]});
 
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
+    columnGap: 8,
     backgroundColor: '#2E6DA2',
     minHeight: '100vh',
   },
   main: {
     margin: 'auto',
-    maxWidth: '600px',
   },
   title: {
-    padding: '2.5rem 0 1rem',
+    padding: 16,
     textAlign: 'center',
-    fontSize: '24px',
     color: '#f3f3f3',
-    fontWeight: 'semibold',
+    fontWeight: 'bold',
     fontFamily: 'SpoqaHanSans',
+    fontSize: 16,
   },
   content: {
+    width: 600,
     padding: 16,
     backgroundColor: '#fff',
     fontFamily: 'SpoqaHanSans',
+    fontSize: 14,
   }
 });
 
@@ -118,7 +123,7 @@ const Textarea = styled.textarea`
   min-height: 100vh;
   outline: 0;
   border: 0;
-  line-height: 31px;
+  line-height: 30px;
   background-attachment: local;
   background-image:
     linear-gradient(to right, white 1rem, transparent 1rem),
