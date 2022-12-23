@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styled from '@emotion/styled';
+import TopControl from "./components/TopControl";
 
 export default function Home() {
   return (
@@ -10,25 +11,32 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main>
-        <Title>제 13회 변호사 시험 답안지</Title>
-        <Content>
-          <Textarea />
-        </Content>
-      </Main>
+      <Background>
+        <Main>
+          <Title>제 13회 변호사 시험 답안지</Title>
+          <TopControl />
+          <Content>
+            <Textarea />
+          </Content>
+        </Main>
+      </Background>
     </>
   )
 }
 
-const Main = styled.main`
+const Background = styled.div`
   min-height: 100vh;
   background: #2E6DA2;
 `;
 
-const Content = styled.div`
-  max-width: 600px;
-  padding: 0 1rem;
+const Main = styled.main`
   margin: auto;
+  max-width: 600px;
+  position: relative;
+`;
+
+const Content = styled.div`
+  padding: 0 1rem;
   background: #fff;
 `;
 
@@ -37,7 +45,7 @@ const Title = styled.h1`
   text-align: center;
   font-size: 24px;
   color: #f3f3f3;
-  font-weight: 500;
+  font-weight: 600;
 `
 
 const Textarea = styled.textarea`
