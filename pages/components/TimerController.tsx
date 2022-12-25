@@ -67,11 +67,13 @@ function TimerController () {
   return (
     <PlayButton onClick={handleClick}>
       {isRunning ? <Image src={pause} alt='정지' width={10} height={10} /> : <Image src={play} alt='재생' width={10} height={10} />}
-      <span>{format(mm)}</span>
-      :
-      <span>{format(ss)}</span>
-      :
-      <span>{format(ms)}</span>
+      <span>
+        <Number>{format(mm)}</Number>
+        :
+        <Number>{format(ss)}</Number>
+        :
+        <Number>{format(ms)}</Number>
+      </span>
     </PlayButton>
   );
 }
@@ -86,6 +88,13 @@ const PlayButton = styled.button`
   background: #edeff1;
   border-radius: 4px;
   font-size: 16px;
+`;
+
+const Number = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
 `;
 
 export default TimerController;
