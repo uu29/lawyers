@@ -9,35 +9,33 @@ function TimerController () {
   const timerRef = useRef<NodeJS.Timer>();
   const [isRunning, setIsRunning] = useState(false);
 
-  const [{
-    mm,
-    ss,
-    ms,
-  }, setState] = useState({
+  const [{hh, mm, ss}, setState] = useState({
+    hh: 0,
     mm: 0,
     ss: 0,
-    ms: 0
   });
 
   const callback = () => {
-    let _ms = ms;
     let _ss = ss;
     let _mm = mm;
+    let _hh = hh;
 
-    _ms = _ms + 1;
-    if (_ms >= 100) {
-      _ss = _ss + 1;
-      _ms = 0;
-    }
+    _ss = _ss + 1;
+
     if (_ss >= 60) {
       _mm = _mm + 1;
       _ss = 0;
     }
+
+    if (_mm >= 60) {
+      _hh = _hh + 1;
+      _mm = 0;
+    }
     setState((prev) => ({
       ...prev,
+      hh : _hh,
       mm : _mm,
       ss: _ss,
-      ms: _ms,
     }));
   }
 
@@ -59,26 +57,26 @@ function TimerController () {
     if (!isRunning) {
       clearInterval(timerRef.current);
     } else {
-      timerRef.current = setInterval(intervalCallback, 10);
+      timerRef.current = setInterval(intervalCallback, 1000);
     }
     setIsRunning(!isRunning);
   }
 
   return (
-    <PlayButton onClick={handleClick}>
-      {isRunning ? <Image src={pause} alt='정지' width={10} height={10} /> : <Image src={play} alt='재생' width={10} height={10} />}
+    <PlayButton onClick={handleClick} isRunning={!isRunning}>
+      {!isRunning ? <Image src={pause} alt='정지' width={10} height={10} /> : <Image src={play} alt='재생' width={10} height={10} />}
       <span>
+        <Number>{format(hh)}</Number>
+        :
         <Number>{format(mm)}</Number>
         :
         <Number>{format(ss)}</Number>
-        :
-        <Number>{format(ms)}</Number>
       </span>
     </PlayButton>
   );
 }
 
-const PlayButton = styled.button`
+const PlayButton = styled.button<{ isRunning: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -88,6 +86,7 @@ const PlayButton = styled.button`
   background: #edeff1;
   border-radius: 4px;
   font-size: 16px;
+  ${({isRunning}) => isRunning && 'color: #E7231E'};
 `;
 
 const Number = styled.span`
