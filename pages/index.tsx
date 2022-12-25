@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import styled from '@emotion/styled';
-import TopControl from "./components/TopControl";
+import PrintController from "./components/PrintController";
 import { Document, Page, Text, View, Font, StyleSheet, pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import {useState} from "react";
+import TimerController from "./components/TimerController";
 
 export default function Home() {
   const [text, setText] = useState('');
@@ -27,8 +28,13 @@ export default function Home() {
       </Head>
       <Background>
         <Main>
-          <Title>제 13회 변호사 시험 답안지</Title>
-          <TopControl onClickSave={saveAsPDF} />
+          <Title>
+            제 13회 변호사 시험 답안지
+            <Controllers>
+              <TimerController />
+              <PrintController onClickSave={saveAsPDF} />
+            </Controllers>
+          </Title>
           <Content>
             <Textarea onChange={(e)=> handleChange(e.target.value)} />
           </Content>
@@ -100,7 +106,7 @@ const Background = styled.div`
 const Main = styled.main`
   margin: auto;
   max-width: 600px;
-  position: relative;
+  padding: 2.5rem 0;
 `;
 
 const Content = styled.div`
@@ -109,7 +115,8 @@ const Content = styled.div`
 `;
 
 const Title = styled.h1`
-  padding: 2.5rem 0 1rem;
+  padding: 1rem 0 1.3rem;
+  position: relative;
   text-align: center;
   font-size: 24px;
   color: #f3f3f3;
@@ -129,4 +136,13 @@ const Textarea = styled.textarea`
     linear-gradient(to right, white 1rem, transparent 1rem),
     linear-gradient(to left, white 1rem, transparent 1rem),
     repeating-linear-gradient(white 14px, white 42px, #2E6DA2 44px);
+`;
+
+const Controllers = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
 `;

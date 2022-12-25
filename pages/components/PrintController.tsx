@@ -1,23 +1,17 @@
 import styled from '@emotion/styled';
 
-interface TopControlProps {
+interface PrintControllerProps {
   onClickSave: () => void;
 }
 
-function TopControl({onClickSave}: TopControlProps){
+function PrintController({onClickSave}: PrintControllerProps){
   return (
-    <TopControlBlock>
+    <div>
       <Button onClick={onClickSave}>저장</Button>
       <Button>인쇄</Button>
-    </TopControlBlock>
+    </div>
   )
 }
-
-const TopControlBlock = styled.div`
-  position: absolute;
-  right: 0;
-  top: 2.5rem;
-`;
 
 const Button = styled.button`
   display: inline-flex;
@@ -31,4 +25,4 @@ const Button = styled.button`
   font-size: 14px;
 `;
 
-export default TopControl;
+export default PrintController;
