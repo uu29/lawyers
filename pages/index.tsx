@@ -15,21 +15,21 @@ export default function Home() {
         content={text}
       />
     )).toBlob();
-    saveAs(blob, '제_13회_변호사_시험_답안지');
+    saveAs(blob, '제13회_변호사_시험_답안지');
   }
 
   return (
     <>
       <Head>
-        <title>제 13회 변호사 시험 답안지</title>
-        <meta name="description" content="제 13회 변호사 시험 답안지입니다." />
+        <title>제13회 변호사 시험 답안지</title>
+        <meta name="description" content="제13회 변호사 시험 답안지입니다." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Background>
         <Main>
           <Title>
-            제 13회 변호사 시험 답안지
+            제13회 변호사 시험 답안지
             <Controllers>
               <TimerController />
               <PrintController onClickSave={saveAsPDF} />
