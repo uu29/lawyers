@@ -80,7 +80,6 @@ const PlayButton = styled.button<{ isRunning: boolean }>`
   justify-content: center;
   column-gap: 4px;
   height: 24px;
-  margin: 0 2px;
   background: #edeff1;
   border-radius: 4px;
   font-size: 16px;

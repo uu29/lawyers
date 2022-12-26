@@ -104,29 +104,32 @@ const Background = styled.div`
 `;
 
 const Main = styled.main`
-  margin: auto;
-  max-width: 600px;
   padding: 2.5rem 0;
 `;
 
 const Content = styled.div`
-  padding: 0 1rem;
+  margin: 0 4rem;
   background: #fff;
 `;
 
 const Title = styled.h1`
-  padding: 1rem 0 1.3rem;
+  padding: 2.5rem 0 1rem;
+  margin: 0 4rem;
   position: relative;
   text-align: center;
-  font-size: 24px;
-  color: #f3f3f3;
-  font-weight: 600;
+  font-size: 32px;
+  color: #1f5b8d;
+  font-weight: 700;
+  background: #fff;
 `
 
 const Textarea = styled.textarea`
-  padding: 1rem;
+  display: block;
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem 4rem;
   resize: none;
-  width: 100%;
+  width: calc(100% - 4rem);
   min-height: 100vh;
   outline: 0;
   border: 0;
@@ -136,6 +139,7 @@ const Textarea = styled.textarea`
     linear-gradient(to right, white 1rem, transparent 1rem),
     linear-gradient(to left, white 1rem, transparent 1rem),
     repeating-linear-gradient(white 14px, white 42px, #2E6DA2 44px);
+  box-sizing: content-box;
 `;
 
 const Controllers = styled.div`
@@ -145,4 +149,5 @@ const Controllers = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 4px;
+  margin: 2rem 4rem 0;
 `;

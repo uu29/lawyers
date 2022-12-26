@@ -6,12 +6,17 @@ interface PrintControllerProps {
 
 function PrintController({onClickSave}: PrintControllerProps){
   return (
-    <div>
+    <PrintControllerBlock>
       <Button onClick={onClickSave}>저장</Button>
       <Button>인쇄</Button>
-    </div>
+    </PrintControllerBlock>
   )
 }
+
+const PrintControllerBlock = styled.div`
+  display: flex;
+  column-gap: 4px;
+`;
 
 const Button = styled.button`
   display: inline-flex;
@@ -19,7 +24,6 @@ const Button = styled.button`
   justify-content: center;
   height: 24px;
   width: 48px;
-  margin: 0 2px;
   background: #edeff1;
   border-radius: 4px;
   font-size: 14px;
