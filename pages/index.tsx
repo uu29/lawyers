@@ -74,13 +74,22 @@ const Title = styled.h1`
 `;
 
 const TextareaBackground = styled.div`
-  padding: 1rem 6rem;
-  line-height: 30px;
+  position: relative;
+  padding: 6px 6rem;
+  line-height: 31px;
   background-attachment: local;
-  background-image:
-          linear-gradient(to right, white 0, transparent 0),
-          linear-gradient(to left, white 0, transparent 0),
-          repeating-linear-gradient(white 14px, white 42px, #2E6DA2 44px);
+  background-image: repeating-linear-gradient(white 3px, white 33px, #2E6DA2 33px, #2E6DA2 34px);
+  border-top: 2px solid #2E6DA2;
+  
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: #fff;
+    content: "";
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -91,7 +100,7 @@ const Textarea = styled.textarea`
   outline: 0;
   border: 0;
   background: transparent;
-  line-height: 30px;
+  line-height: inherit;
 `;
 
 const Controllers = styled.div`
