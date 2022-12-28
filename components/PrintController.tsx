@@ -4,13 +4,13 @@ interface PrintControllerProps {
   onClickSave: () => void;
 }
 
-function PrintController({onClickSave}: PrintControllerProps){
+function PrintController({ onClickSave }: PrintControllerProps) {
   return (
     <PrintControllerBlock>
       <Button onClick={onClickSave}>저장</Button>
       <Button>인쇄</Button>
     </PrintControllerBlock>
-  )
+  );
 }
 
 const PrintControllerBlock = styled.div`
