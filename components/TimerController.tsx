@@ -50,7 +50,7 @@ function TimerController() {
   const format = (num: number) => ((`${num}`).length === 1 ? `0${num}` : `${num}`);
 
   const handleClick = () => {
-    if (!isRunning) {
+    if (isRunning) {
       clearInterval(timerRef.current);
     } else {
       timerRef.current = setInterval(intervalCallback, 1000);
@@ -61,9 +61,9 @@ function TimerController() {
   return (
     <PlayButton
       onClick={handleClick}
-      isRunning={!isRunning}
+      isRunning={isRunning}
     >
-      {!isRunning ? (
+      {isRunning ? (
         <Image
           src="/pause.png"
           alt="정지"
