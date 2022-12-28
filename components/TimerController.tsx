@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import styled from '@emotion/styled';
+import Pause from './icon/Pause';
+import Play from './icon/Play';
 
 function TimerController() {
   const savedCallback = useRef<() => void>();
@@ -63,21 +64,7 @@ function TimerController() {
       onClick={handleClick}
       isRunning={isRunning}
     >
-      {isRunning ? (
-        <Image
-          src="/pause.png"
-          alt="정지"
-          width={10}
-          height={10}
-        />
-      ) : (
-        <Image
-          src="/play.png"
-          alt="재생"
-          width={10}
-          height={10}
-        />
-      )}
+      {isRunning ? <Icon><Pause /></Icon> : <Icon><Play /></Icon>}
       <span>
         <Number>{format(hh)}</Number>
         :
@@ -93,7 +80,7 @@ const PlayButton = styled.button<{ isRunning: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  column-gap: 4px;
+  column-gap: 6px;
   height: 24px;
   background: #edeff1;
   border-radius: 4px;
@@ -106,6 +93,14 @@ const Number = styled.span`
   align-items: center;
   justify-content: center;
   width: 18px;
+`;
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
 `;
 
 export default TimerController;
