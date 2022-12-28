@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Pause from './icon/Pause';

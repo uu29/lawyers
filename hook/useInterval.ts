@@ -1,12 +1,12 @@
-import {useEffect, useRef} from "react";
-import {clearInterval} from "timers";
+import { clearInterval } from 'timers';
+import { useEffect, useRef } from 'react';
 
 interface UseIntervalProps {
   callback: () => void;
   delay: number | null;
 }
 
-  const useInterval = ({callback, delay}: UseIntervalProps) => {
+const useInterval = ({ callback, delay }: UseIntervalProps) => {
   const savedCallback = useRef<() => void>();
 
   useEffect(() => {
@@ -19,12 +19,15 @@ interface UseIntervalProps {
     const callbackFunc = () => {
       if (!savedCallback.current) return;
       savedCallback.current();
-    }
+    };
 
     const timerId = setInterval(callbackFunc, delay);
-    return () => clearInterval(timerId);
-  }, [delay]);
 
-}
+    // eslint-disable-next-line consistent-return
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [delay]);
+};
 
 export default useInterval;
