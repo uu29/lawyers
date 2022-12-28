@@ -43,9 +43,9 @@ export default function Home() {
               <PrintController onClickSave={saveAsPDF} />
             </Controllers>
           </Title>
-          <Content>
+          <TextareaBackground>
             <Textarea onChange={(e) => handleChange(e.target.value)} />
-          </Content>
+          </TextareaBackground>
         </Main>
       </Background>
     </>
@@ -59,16 +59,12 @@ const Background = styled.div`
 
 const Main = styled.main`
   padding: 2.5rem 0;
-`;
-
-const Content = styled.div`
-  margin: 0 4rem;
-  background: #fff;
+  max-width: 1200px;
+  margin: auto;
 `;
 
 const Title = styled.h1`
-  padding: 2.5rem 0 1rem;
-  margin: 0 4rem;
+  padding: 3rem 6rem 2rem;
   position: relative;
   text-align: center;
   font-size: 32px;
@@ -77,23 +73,25 @@ const Title = styled.h1`
   background: #fff;
 `;
 
-const Textarea = styled.textarea`
-  display: block;
-  max-width: 1200px;
-  margin: auto;
-  padding: 1rem 4rem;
-  resize: none;
-  width: calc(100% - 4rem);
-  min-height: 100vh;
-  outline: 0;
-  border: 0;
+const TextareaBackground = styled.div`
+  padding: 1rem 6rem;
   line-height: 30px;
   background-attachment: local;
   background-image:
-    linear-gradient(to right, white 1rem, transparent 1rem),
-    linear-gradient(to left, white 1rem, transparent 1rem),
-    repeating-linear-gradient(white 14px, white 42px, #2E6DA2 44px);
-  box-sizing: content-box;
+          linear-gradient(to right, white 0, transparent 0),
+          linear-gradient(to left, white 0, transparent 0),
+          repeating-linear-gradient(white 14px, white 42px, #2E6DA2 44px);
+`;
+
+const Textarea = styled.textarea`
+  display: block;
+  resize: none;
+  width: 100%;
+  min-height: 100vh;
+  outline: 0;
+  border: 0;
+  background: transparent;
+  line-height: 30px;
 `;
 
 const Controllers = styled.div`
