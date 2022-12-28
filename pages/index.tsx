@@ -105,10 +105,10 @@ const Textarea = styled.textarea`
 
 const Controllers = styled.div`
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   row-gap: 4px;
-  margin: 2rem 4rem 0;
 `;
