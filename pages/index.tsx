@@ -34,43 +34,46 @@ export default function Home() {
           href="/favicon.ico"
         />
       </Head>
-      <Background>
-        <Main>
-          <Title>
-            제13회 변호사 시험 답안지
-            <Controllers>
-              <TimerController />
-              <PrintController onClickSave={saveAsPDF} />
-            </Controllers>
-          </Title>
-          <TextareaBackground>
-            <Textarea onChange={(e) => handleChange(e.target.value)} />
-          </TextareaBackground>
-        </Main>
-      </Background>
+      <Main>
+        <Title>
+          제13회 변호사 시험 답안지
+          <Controllers>
+            <TimerController />
+            <PrintController onClickSave={saveAsPDF} />
+          </Controllers>
+        </Title>
+        <TextareaBackground>
+          <Textarea onChange={(e) => handleChange(e.target.value)} />
+        </TextareaBackground>
+      </Main>
+      <Background />
     </>
   );
 }
 
 const Background = styled.div`
-  min-height: 100vh;
+  z-index: -1;
+  position: fixed;
+  left: 0;
+  top: 0;
   background: #2E6DA2;
+  width: 100%;
+  height: 100%;
 `;
 
 const Main = styled.main`
-  padding: 2.5rem 0;
+  margin: 2.5rem auto;
   max-width: 1200px;
-  margin: auto;
+  background: #fff;
 `;
 
 const Title = styled.h1`
-  padding: 3rem 6rem 2rem;
+  padding: 3rem 6rem;
   position: relative;
   text-align: center;
   font-size: 32px;
   color: #1f5b8d;
   font-weight: 700;
-  background: #fff;
 `;
 
 const TextareaBackground = styled.div`
@@ -96,7 +99,9 @@ const Textarea = styled.textarea`
   display: block;
   resize: none;
   width: 100%;
-  min-height: 100vh;
+  max-width: 520px;
+  margin: auto;
+  min-height: 1200px;
   outline: 0;
   border: 0;
   background: transparent;
