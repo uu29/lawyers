@@ -5,10 +5,12 @@ import { pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import PDFDocument from '../components/PDFDocument';
 import PrintController from '../components/PrintController';
+import RowLine from '../components/textarea/RowLine';
 import TimerController from '../components/TimerController';
 
 export default function Home() {
   const [text, setText] = useState('');
+  const rowsPerPage = 30;
   const handleChange = (value: string) => setText(value);
   const saveAsPDF = async () => {
     const blob = await pdf((
@@ -42,14 +44,26 @@ export default function Home() {
             <PrintController onClickSave={saveAsPDF} />
           </Controllers>
         </Title>
-        <TextareaBackground>
-          <Textarea onChange={(e) => handleChange(e.target.value)} />
-        </TextareaBackground>
+        <TextareaBlock>
+          <Textarea
+            onChange={(e) => handleChange(e.target.value)}
+            lineHeight={DEFAULT_LINE_HEIGHT}
+          />
+          {Array.from({ length: rowsPerPage }).map((_, index) => (
+            <RowLine
+              lineNumber={index + 1}
+              key={index}
+            />
+          ))}
+          <RowLine lineNumber={1} />
+        </TextareaBlock>
       </Main>
       <Background />
     </>
   );
 }
+
+export const DEFAULT_LINE_HEIGHT = 31;
 
 const Background = styled.div`
   z-index: -1;
@@ -67,6 +81,10 @@ const Main = styled.main`
   background: #fff;
 `;
 
+const TextareaBlock = styled.div`
+  position: relative;
+`;
+
 const Title = styled.h1`
   padding: 3rem 6rem;
   position: relative;
@@ -74,38 +92,21 @@ const Title = styled.h1`
   font-size: 32px;
   color: #1f5b8d;
   font-weight: 700;
+  border-bottom: 2px solid #2E6DA2;
 `;
 
-const TextareaBackground = styled.div`
-  position: relative;
-  padding: 6px 6rem;
-  line-height: 31px;
-  background-attachment: local;
-  background-image: repeating-linear-gradient(white 3px, white 33px, #2E6DA2 33px, #2E6DA2 34px);
-  border-top: 2px solid #2E6DA2;
-  
-  &::before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: #fff;
-    content: "";
-  }
-`;
-
-const Textarea = styled.textarea`
+const Textarea = styled.textarea<{ lineHeight?: number }>`
   display: block;
   resize: none;
   width: 100%;
   max-width: 520px;
   margin: auto;
+  padding-top: 3px;
   min-height: 1200px;
   outline: 0;
   border: 0;
   background: transparent;
-  line-height: inherit;
+  line-height: ${({ lineHeight }) => (lineHeight ? `${lineHeight}px` : '31px')};
 `;
 
 const Controllers = styled.div`
