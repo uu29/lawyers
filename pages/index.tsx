@@ -70,7 +70,6 @@ export default function Home() {
 const COLS = 37;
 export const ROWS_PER_PAGE = 30;
 export const COLS_PER_ROW = COLS * 1.5;
-export const MAX_LENGTH = ROWS_PER_PAGE * COLS;
 export const DEFAULT_LINE_HEIGHT = 31;
 
 const Background = styled.div`
@@ -86,8 +85,6 @@ const Background = styled.div`
 const Main = styled.main`
   margin: 2.5rem auto;
   max-width: 1200px;
-  background: #fff;
-  min-height: 1140px;
 `;
 
 const Title = styled.h1`
@@ -98,6 +95,7 @@ const Title = styled.h1`
   color: #1f5b8d;
   font-weight: 700;
   border-bottom: 2px solid #2E6DA2;
+  background: #fff;
 `;
 
 const Controllers = styled.div`

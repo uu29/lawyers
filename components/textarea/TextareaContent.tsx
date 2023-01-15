@@ -21,34 +21,47 @@ function TextareaContent({ onChange, isFocused }: TextareaContentProps) {
   }, [isFocused]);
 
   return (
-    <TextareaContentBlock>
-      <Textarea
-        ref={ref}
-        onChange={(e) => onChange(e, setMaxLength)}
-        lineHeight={DEFAULT_LINE_HEIGHT}
-        rows={ROWS_PER_PAGE}
-        cols={COLS_PER_ROW}
-        maxLength={maxLength}
-      />
-      {Array.from({ length: ROWS_PER_PAGE }).map((_, index) => (
-        <RowLine
-          lineNumber={index + 1}
-          key={index}
+    <TextareaContentWrapper>
+      <TextareaContentInner>
+        <Textarea
+          ref={ref}
+          onChange={(e) => onChange(e, setMaxLength)}
+          lineHeight={DEFAULT_LINE_HEIGHT}
+          rows={ROWS_PER_PAGE}
+          cols={COLS_PER_ROW}
+          maxLength={maxLength}
         />
-      ))}
-      <RowLine lineNumber={1} />
-    </TextareaContentBlock>
+        {Array.from({ length: ROWS_PER_PAGE }).map((_, index) => (
+          <RowLine
+            lineNumber={index + 1}
+            key={index}
+          />
+        ))}
+        <RowLine lineNumber={1} />
+      </TextareaContentInner>
+    </TextareaContentWrapper>
   );
 }
 
-const TextareaContentBlock = styled.div`
+const TextareaContentWrapper = styled.div`
+  padding: 60px 0;
+  margin: 90px 0;
+  background: #fff;
+  
+  &:first-of-type {
+    padding-top: 0;
+    margin-top: 0;
+  }
+`;
+
+const TextareaContentInner = styled.div`
   position: relative;
 `;
 
 const Textarea = styled.textarea<{ lineHeight?: number }>`
+  margin: auto;
   display: block;
   resize: none;
-  margin: auto;
   padding-top: 3px;
   outline: 0;
   border: 0;
