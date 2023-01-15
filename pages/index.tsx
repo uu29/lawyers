@@ -102,7 +102,7 @@ const Textarea = styled.textarea<{ lineHeight?: number }>`
   max-width: 520px;
   margin: auto;
   padding-top: 3px;
-  min-height: 1200px;
+  min-height: 1000px;
   outline: 0;
   border: 0;
   background: transparent;
