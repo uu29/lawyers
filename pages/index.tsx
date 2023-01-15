@@ -11,6 +11,7 @@ import TimerController from '../components/TimerController';
 export default function Home() {
   const [text, setText] = useState('');
   const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
   const saveAsPDF = async () => {
     const blob = await pdf((
       <PDFDocument content={text} />
@@ -24,6 +25,7 @@ export default function Home() {
     if (scrollHeight > clientHeight) {
       onOverflow(value.length);
       setNowPage(nowPage + 1);
+      setTotalPage(totalPage + 1);
     }
   };
 
@@ -52,7 +54,13 @@ export default function Home() {
             <PrintController onClickSave={saveAsPDF} />
           </Controllers>
         </Title>
-        <TextareaContent onChange={onChange} />
+        {Array.from({ length: totalPage }).map((_, index) => (
+          <TextareaContent
+            key={index}
+            onChange={onChange}
+            isFocused={nowPage === index}
+          />
+        ))}
       </Main>
       <Background />
     </>
@@ -79,7 +87,7 @@ const Main = styled.main`
   margin: 2.5rem auto;
   max-width: 1200px;
   background: #fff;
-  height: 1140px;
+  min-height: 1140px;
 `;
 
 const Title = styled.h1`

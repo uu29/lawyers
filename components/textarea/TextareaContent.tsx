@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
   DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW,
@@ -7,14 +7,23 @@ import RowLine from './RowLine';
 
 interface TextareaContentProps {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void) => void;
+  isFocused: boolean;
 }
 
-function TextareaContent({ onChange }: TextareaContentProps) {
+function TextareaContent({ onChange, isFocused }: TextareaContentProps) {
+  const ref = useRef<HTMLTextAreaElement>(null);
   const [maxLength, setMaxLength] = useState(Number.MAX_SAFE_INTEGER);
+
+  useEffect(() => {
+    if (isFocused && ref?.current) {
+      ref.current.focus();
+    }
+  }, [isFocused]);
 
   return (
     <TextareaContentBlock>
       <Textarea
+        ref={ref}
         onChange={(e) => onChange(e, setMaxLength)}
         lineHeight={DEFAULT_LINE_HEIGHT}
         rows={ROWS_PER_PAGE}
