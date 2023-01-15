@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import {
   DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW, MAX_LENGTH,
@@ -6,18 +6,20 @@ import {
 import RowLine from './RowLine';
 
 interface TextareaContentProps {
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>)=> void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void) => void;
 }
 
 function TextareaContent({ onChange }: TextareaContentProps) {
+  const [maxLength, setMaxLength] = useState(Number.MAX_SAFE_INTEGER);
+
   return (
     <TextareaContentBlock>
       <Textarea
-        onChange={onChange}
+        onChange={(e) => onChange(e, setMaxLength)}
         lineHeight={DEFAULT_LINE_HEIGHT}
         rows={ROWS_PER_PAGE}
         cols={COLS_PER_ROW}
-        maxLength={MAX_LENGTH}
+        maxLength={maxLength}
       />
       {Array.from({ length: ROWS_PER_PAGE }).map((_, index) => (
         <RowLine
