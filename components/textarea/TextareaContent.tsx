@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS } from '../../pages';
+import {
+  DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW, MAX_LENGTH,
+} from '../../pages';
 import RowLine from './RowLine';
 
 interface TextareaContentProps {
@@ -14,7 +16,8 @@ function TextareaContent({ onChange }: TextareaContentProps) {
         onChange={onChange}
         lineHeight={DEFAULT_LINE_HEIGHT}
         rows={ROWS_PER_PAGE}
-        cols={COLS}
+        cols={COLS_PER_ROW}
+        maxLength={MAX_LENGTH}
       />
       {Array.from({ length: ROWS_PER_PAGE }).map((_, index) => (
         <RowLine

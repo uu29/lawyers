@@ -1,3 +1,4 @@
+import exp from 'constants';
 import React, { useState } from 'react';
 import Head from 'next/head';
 import styled from '@emotion/styled';
@@ -20,6 +21,7 @@ export default function Home() {
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value, scrollHeight, clientHeight } = e.target;
+    console.log(value.length);
     setText(value);
     if (scrollHeight > clientHeight) {
       setNowPage(nowPage + 1);
@@ -58,8 +60,10 @@ export default function Home() {
   );
 }
 
+const COLS = 37;
 export const ROWS_PER_PAGE = 30;
-export const COLS = 37 * 1.5;
+export const COLS_PER_ROW = COLS * 1.5;
+export const MAX_LENGTH = ROWS_PER_PAGE * COLS;
 export const DEFAULT_LINE_HEIGHT = 31;
 
 const Background = styled.div`
