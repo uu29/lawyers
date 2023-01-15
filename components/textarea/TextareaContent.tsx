@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW, MAX_LENGTH,
+  DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW,
 } from '../../pages';
 import RowLine from './RowLine';
 
