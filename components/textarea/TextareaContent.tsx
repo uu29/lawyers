@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
-import {
-  DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW,
-} from '../../pages';
+import { DEFAULT_LINE_HEIGHT, ROWS_PER_PAGE, COLS_PER_ROW } from '../../pages';
 import RowLine from './RowLine';
 
 interface TextareaContentProps {
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>,
+             onOverflow: (length: number) => void,
+             page: number) => void;
   isFocused: boolean;
+  page: number;
 }
 
-function TextareaContent({ onChange, isFocused }: TextareaContentProps) {
+function TextareaContent({ onChange, isFocused, page }: TextareaContentProps) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [maxLength, setMaxLength] = useState(Number.MAX_SAFE_INTEGER);
 
@@ -25,7 +26,7 @@ function TextareaContent({ onChange, isFocused }: TextareaContentProps) {
       <TextareaContentInner>
         <Textarea
           ref={ref}
-          onChange={(e) => onChange(e, setMaxLength)}
+          onChange={(e) => onChange(e, setMaxLength, page)}
           lineHeight={DEFAULT_LINE_HEIGHT}
           rows={ROWS_PER_PAGE}
           cols={COLS_PER_ROW}
@@ -67,7 +68,6 @@ const Textarea = styled.textarea<{ lineHeight?: number }>`
   border: 0;
   background: transparent;
   line-height: ${({ lineHeight }) => (lineHeight ? `${lineHeight}px` : '31px')};
-  //overflow: hidden;
 `;
 
 export default TextareaContent;

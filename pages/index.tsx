@@ -19,13 +19,15 @@ export default function Home() {
     saveAs(blob, '제13회_변호사_시험_답안지');
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void, page: number) => {
     const { value, scrollHeight, clientHeight } = e.target;
     setText(value);
     if (scrollHeight > clientHeight) {
       onOverflow(value.length);
       setNowPage(nowPage + 1);
       setTotalPage(totalPage + 1);
+    } else {
+      setNowPage(page);
     }
   };
 
@@ -59,6 +61,7 @@ export default function Home() {
             key={index}
             onChange={onChange}
             isFocused={nowPage === index}
+            page={index}
           />
         ))}
       </Main>
