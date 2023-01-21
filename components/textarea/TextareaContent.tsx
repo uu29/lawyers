@@ -7,11 +7,15 @@ interface TextareaContentProps {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>,
              onOverflow: (length: number) => void,
              page: number) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>,
+              page: number) => void;
   isFocused: boolean;
   page: number;
 }
 
-function TextareaContent({ onChange, isFocused, page }: TextareaContentProps) {
+function TextareaContent({
+  onChange, onKeyDown, isFocused, page,
+}: TextareaContentProps) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [maxLength, setMaxLength] = useState(Number.MAX_SAFE_INTEGER);
 
@@ -27,6 +31,7 @@ function TextareaContent({ onChange, isFocused, page }: TextareaContentProps) {
         <Textarea
           ref={ref}
           onChange={(e) => onChange(e, setMaxLength, page)}
+          onKeyDown={(e) => onKeyDown(e, page)}
           lineHeight={DEFAULT_LINE_HEIGHT}
           rows={ROWS_PER_PAGE}
           cols={COLS_PER_ROW}

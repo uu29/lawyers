@@ -10,7 +10,7 @@ import TimerController from '../components/TimerController';
 
 export default function Home() {
   const [text, setText] = useState('');
-  const [nowPage, setNowPage] = useState(0);
+  const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const saveAsPDF = async () => {
     const blob = await pdf((
@@ -29,6 +29,17 @@ export default function Home() {
     } else {
       setNowPage(page);
     }
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>, page: number) => {
+    if (totalPage === 1
+      || page === 1
+      || e.key !== 'Backspace'
+      || page !== totalPage
+      || text) return;
+
+    setNowPage(nowPage - 1);
+    setTotalPage(totalPage - 1);
   };
 
   return (
@@ -60,8 +71,9 @@ export default function Home() {
           <TextareaContent
             key={index}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             isFocused={nowPage === index}
-            page={index}
+            page={index + 1}
           />
         ))}
       </Main>
