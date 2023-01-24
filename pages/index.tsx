@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import styled from '@emotion/styled';
-import { pdf } from '@react-pdf/renderer';
-import { saveAs } from 'file-saver';
-import PDFDocument from '../components/PDFDocument';
+import { modal } from '../components/lib/modal/ModalManager';
 import PrintController from '../components/PrintController';
+import SavePDFModal from '../components/saver/SavePDFModal';
 import TextareaContent from '../components/textarea/TextareaContent';
 import TimerController from '../components/TimerController';
 
@@ -12,11 +11,9 @@ export default function Home() {
   const [text, setText] = useState('');
   const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const saveAsPDF = async () => {
-    const blob = await pdf((
-      <PDFDocument content={text} />
-    )).toBlob();
-    saveAs(blob, '제13회_변호사_시험_답안지');
+
+  const onClickSave = () => {
+    modal.pop(<SavePDFModal text={text} />);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void, page: number) => {
@@ -64,7 +61,7 @@ export default function Home() {
           제13회 변호사 시험 답안지
           <Controllers>
             <TimerController />
-            <PrintController onClickSave={saveAsPDF} />
+            <PrintController onClickSave={onClickSave} />
           </Controllers>
         </Title>
         {Array.from({ length: totalPage }).map((_, index) => (
@@ -77,6 +74,7 @@ export default function Home() {
           />
         ))}
       </Main>
+      <div id="modal" />
       <Background />
     </>
   );
