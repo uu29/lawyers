@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Head from 'next/head';
 import styled from '@emotion/styled';
 import { modal } from '../components/lib/modal/ModalManager';
@@ -11,16 +11,16 @@ export default function Home() {
   const [text, setText] = useState('');
   const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const textareaContents = useRef<HTMLTextAreaElement[]>([]);
 
   const onClickSave = () => {
     modal.pop(<SavePDFModal text={text} />);
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, onOverflow: (length: number) => void, page: number) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>, page: number) => {
     const { value, scrollHeight, clientHeight } = e.target;
     setText(value);
     if (scrollHeight > clientHeight) {
-      onOverflow(value.length);
       setNowPage(nowPage + 1);
       setTotalPage(totalPage + 1);
     } else {
@@ -69,8 +69,12 @@ export default function Home() {
             key={index}
             onChange={onChange}
             onKeyDown={onKeyDown}
-            isFocused={nowPage === index}
             page={index + 1}
+            ref={(el) => {
+              if (el) {
+                textareaContents.current[index] = el;
+              }
+            }}
           />
         ))}
       </Main>
