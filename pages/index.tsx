@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Head from 'next/head';
 import styled from '@emotion/styled';
 import { modal } from '../components/lib/modal/ModalManager';
@@ -12,6 +12,12 @@ export default function Home() {
   const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const textareaContents = useRef<HTMLTextAreaElement[]>([]);
+
+  useEffect(() => {
+    if (textareaContents.current[nowPage - 1]) {
+      textareaContents.current[nowPage - 1].focus();
+    }
+  }, [nowPage]);
 
   const onClickSave = () => {
     modal.pop(<SavePDFModal text={text} />);
