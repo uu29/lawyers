@@ -25,7 +25,7 @@ const TextareaContent = forwardRef<HTMLTextAreaElement, TextareaContentProps>(({
         lineHeight={DEFAULT_LINE_HEIGHT}
         rows={ROWS_PER_PAGE}
         cols={COLS_PER_ROW}
-        // maxLength={maxLength}
+        // maxLength={Number.MAX_SAFE_INTEGER}
       />
       {Array.from({ length: ROWS_PER_PAGE }).map((_, index) => (
         <RowLine

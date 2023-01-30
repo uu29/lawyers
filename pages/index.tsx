@@ -27,22 +27,53 @@ export default function Home() {
     const { value, scrollHeight, clientHeight } = e.target;
     setText(value);
     if (scrollHeight > clientHeight) {
-      setNowPage(nowPage + 1);
-      setTotalPage(totalPage + 1);
+      setNowPage((prevState) => prevState + 1);
+      setTotalPage((prevState) => prevState + 1);
     } else {
       setNowPage(page);
     }
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>, page: number) => {
-    if (totalPage === 1
-      || page === 1
-      || e.key !== 'Backspace'
-      || page !== totalPage
-      || text) return;
+  const removePage = () => {
+    setNowPage((prevState) => prevState - 1);
+    setTotalPage((prevState) => prevState - 1);
+  };
 
-    setNowPage(nowPage - 1);
-    setTotalPage(totalPage - 1);
+  const movePrevPage = () => {
+    setNowPage((prevState) => prevState - 1);
+  };
+
+  const moveNextPage = () => {
+    setNowPage((prevState) => prevState + 1);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>, page: number) => {
+    switch (e.key) {
+      case 'Backspace': {
+        if (checkIsFirstPage({ page, totalPage }) || checkIsEmptyText(text) || !checkIsLastPage({
+          page,
+          totalPage,
+        })) return;
+
+        removePage();
+        break;
+      }
+      case 'ArrowUp': {
+        if (checkIsFirstPage({ page, totalPage }) || !checkIsLastPage({ page, totalPage })) return;
+
+        movePrevPage();
+        break;
+      }
+      case 'ArrowDown': {
+        if (checkIsLastPage({ page, totalPage })) return;
+
+        moveNextPage();
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   };
 
   return (
@@ -89,6 +120,17 @@ export default function Home() {
     </>
   );
 }
+
+interface CheckIsFirstPageProps {
+  page: number;
+  totalPage: number;
+}
+
+const checkIsFirstPage = ({ page, totalPage }: CheckIsFirstPageProps) => page === totalPage && page === 1;
+
+const checkIsLastPage = ({ page, totalPage }: CheckIsFirstPageProps) => page === totalPage;
+
+const checkIsEmptyText = (text: string) => text.length === 0;
 
 const COLS = 37;
 export const ROWS_PER_PAGE = 30;
